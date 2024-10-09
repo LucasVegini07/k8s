@@ -1,7 +1,10 @@
 package main
 
-import "net/http"
-
+import (
+	"fmt"
+	"net/http"
+	"os"
+)
 func main() {
     http.HandleFunc("/", handler)
     http.ListenAndServe(":80", nil)
