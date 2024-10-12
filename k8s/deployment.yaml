@@ -16,7 +16,16 @@ spec:
     spec:
       containers:
         - name: goserver
-          image: "lucasrvegini/hello-go:v4"
+          image: "lucasrvegini/hello-go:v6"
+
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            periodSeconds: 5
+            failureThreshold : 3
+            timeoutSeconds: 1
+            successThreshold: 1
 
           envFrom:
             - configMapRef:
@@ -27,7 +36,7 @@ spec:
           volumeMounts:
             - mountPath: "/go/myfamily"
               name: config
-              
+
       volumes:
         - name: config
           configMap:
