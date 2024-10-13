@@ -16,7 +16,15 @@ spec:
     spec:
       containers:
         - name: goserver
-          image: "lucasrvegini/hello-go:v7"
+          image: "lucasrvegini/hello-go:v8"
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 20Mi
+            limits:
+              cpu: 500m
+              memory: 25Mi
 
           startupProbe:
             httpGet:
@@ -39,7 +47,7 @@ spec:
             periodSeconds: 5
             failureThreshold: 1
             timeoutSeconds: 1
-            successThreshold: 15
+            successThreshold: 1
 
           envFrom:
             - configMapRef:
@@ -50,8 +58,14 @@ spec:
           volumeMounts:
             - mountPath: "/go/myfamily"
               name: config
+            - mountPath: "/go/pvc"
+              name: goserver-pvc
 
       volumes:
+        - name: goserver-pvc
+          persistentVolumeClaim:
+            claimName: goserver-pvc
+
         - name: config
           configMap:
             name: configmap-family
