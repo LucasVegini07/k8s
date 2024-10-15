@@ -6,8 +6,8 @@ spec:
   replicas: 4
   serviceName: mysql-h
   selector:
-    matchLabels:
-      app: mysql
+      matchLabels:
+        app: mysql
   template:
     metadata:
       labels:
@@ -24,11 +24,11 @@ spec:
               name: mysql-volume
 
   volumeClaimTemplates:
-    - metadata:
-        name: mysql-volume
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 5Gi
+  - metadata:
+      name: mysql-volume
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
